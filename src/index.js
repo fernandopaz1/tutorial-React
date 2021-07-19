@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { render } from "react-dom";
 
 const SaludarEnIdiomas = ({ idioma }) => {
@@ -84,3 +84,41 @@ const Mirar = ({ cosa1, cosa2 = "horno", cosa3 }) => (
     </p>
 );
 render(<Mirar cosa1="Techo" cosa3="Perro" />, document.getElementById("root2"));
+
+const Button = () => {
+    // esto es un hook
+    // el primer parametro es la propiedad del estado y el segundo la funcion
+    // para sobreescrir esa propiedad
+    const [conteo, setConteo] = useState(0);
+    useEffect(() => {
+        console.log("Se ejecuto el useEffect");
+
+        return () => {
+            console.log("Se elimina  el componenete");
+        };
+    }, []); // si ponemos un array vacio como segundo parametro
+    // la funcion solo se ejecuta la primera vez y no en las actualizaciones
+    // si retronames una funcion estase ejecuta al eliminar el componente
+    // pero solo si limitamos la ejecucion al principio
+    return (
+        <div>
+            <p>Presionado: {conteo}</p>
+            <button onClick={() => setConteo(conteo + 1)}> Click Me</button>
+        </div>
+    );
+};
+
+const Botones = () => {
+    const [showButton, setShowButton] = useState(true);
+    return (
+        <div>
+            <button onClick={() => setShowButton(!showButton)}>
+                {" "}
+                Reset boton{" "}
+            </button>
+            <div>{showButton && <Button />}</div>
+        </div>
+    );
+};
+
+render(<Botones />, document.getElementById("root3"));
