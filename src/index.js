@@ -64,7 +64,7 @@ class AppClase extends Component {
     }
 }
 // si hago que este vdom apunte a root  sobreescribe todo lo demas
-render(<AppClase />, document.getElementById("root"));
+render(<AppClase />, document.getElementById("root1"));
 
 // cada componente de react pasa por un proceso de renderizado en
 // cada actualizacion (en un componente de clase se ejecuta devuelte render() y en un componenete de funcion
@@ -73,4 +73,14 @@ render(<AppClase />, document.getElementById("root"));
 // que se  esta usando
 // React compara la representacion virtual con la real y si hya alguna diferencia hace el trabajo minimo para que coincidan
 
- 
+/// Ejemplo de props
+
+// {texto} lo que hace es un destructuring, basicamente estamos indicando que propiedades recibimos como parametro
+// y con que nombre. Estos mismo atributos estan presentes en el objeto props pero de esta forma usamos directamente los atributos
+// podemos asignar valores por defecto por ecmascript6
+const Mirar = ({ cosa1, cosa2 = "horno", cosa3 }) => (
+    <p>
+        Mirar {cosa1}, {cosa2} y {cosa3}
+    </p>
+);
+render(<Mirar cosa1="Techo" cosa3="Perro" />, document.getElementById("root2"));
