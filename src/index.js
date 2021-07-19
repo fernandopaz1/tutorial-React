@@ -1,9 +1,20 @@
 import React from "react";
 import { render } from "react-dom";
 
-const Saludo = () => {
-    let aQuien = "mundo";
-    return <p>Hola {aQuien}</p>;
+const SaludarEnIdiomas = ({ idioma }) => {
+    if (idioma === "es") return <p>Hola</p>;
+    if (idioma === "en") return <p>Hello</p>;
+    if (idioma === "fr") return <p>Bonjour</p>;
+    return <p>Hello</p>;
+};
+
+const Saludo = ({ idioma, aQuien }) => {
+    console.log(aQuien);
+    return (
+        <p>
+            <SaludarEnIdiomas idioma={idioma} /> {aQuien}
+        </p>
+    );
 };
 
 // funcion de javascript que retorna un componente de jsx vdom
@@ -17,7 +28,7 @@ const Saludo = () => {
 const App = () => {
     return (
         <h1>
-            <Saludo />!
+            <Saludo idioma="es" aQuien="Fernando" />!
         </h1>
     );
 };
@@ -26,4 +37,3 @@ const App = () => {
 // de html con id root definido en public/index.html
 // la etiqueta en la que se agrega es App
 render(<App />, document.getElementById("root"));
-
