@@ -1,6 +1,5 @@
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { Component, useState, useEffect, useRef, Suspense } from "react";
 import { render } from "react-dom";
-import { EjemploComponente } from "./componentes/EjemploComponente";
 
 const SaludarEnIdiomas = ({ idioma }) => {
     if (idioma === "es") return <p>Hola</p>;
@@ -12,9 +11,9 @@ const SaludarEnIdiomas = ({ idioma }) => {
 const Saludo = ({ idioma, aQuien }) => {
     console.log(aQuien);
     return (
-        <p>
+        <h1>
             <SaludarEnIdiomas idioma={idioma} /> {aQuien}
-        </p>
+        </h1>
     );
 };
 
@@ -45,10 +44,10 @@ const Tecnologias = () => {
 // puede parecer como un salto de linea pero porque no estan en el mismo dom
 const App = () => {
     return (
-        <h1>
+        <div>
             <Saludo idioma="es" aQuien="Fernando" />!
             <Tecnologias />
-        </h1>
+        </div>
     );
 };
 
@@ -236,26 +235,33 @@ const Acordeon = () => {
 
 render(<Acordeon />, document.getElementById("root5"));
 
+// Esta seria la forma de importar elementos pero recien cuando lo necesitamos
+// Nuestro componenete no se descarga al principio sino onDemand
+// empieza a recorrer el arbol para hacer el render y cuando llega al punto de mostrarr ese
+// componente y lo solicita. Mientras se descarga ese componenete la actualizacion de
+// la interfaz se suspende
+// Cuando hay algo que  pausa la actualización de la interfaz debemos especificar
+// un componenete de respaldo
+
+// parece que para haceresto del import lazy es necesario que el import se haga con el degault
+const EjemploComponente = React.lazy(() =>
+    import("./componentes/EjemploComponente")
+);
+
 const MostrarCodeSpliting = () => {
-    const [show, setShow] = useState(false);
+    const [showSurprise, setShowSurprise] = useState(false);
     return (
         <div>
-            <button onClick={() => setShow(!show)}>Mostrar Sorpresa</button>
-            {show && <EjemploComponente />}
+            <button onClick={(ev) => setShowSurprise(!showSurprise)}>
+                Mostrar Sorpresa
+            </button>
+            {showSurprise && (
+                <Suspense fallback={<p>...Cargando</p>}>
+                    <EjemploComponente />
+                </Suspense>
+            )}
         </div>
     );
 };
 
 render(<MostrarCodeSpliting />, document.getElementById("root6"));
-
-// const ImportOnDemand = () => {
-//     const [show, setShow] = useState(false);
-//     return (
-//         <div>
-//             <button onClick={() => setShow(!show)}>Mostrar Sorpresa</button>
-//             {show && <EjemploComponente />}
-//         </div>
-//     );
-// };
-
-// render(<ImportOnDemand />, document.getElementById("root7"));
