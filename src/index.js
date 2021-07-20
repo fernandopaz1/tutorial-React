@@ -122,3 +122,27 @@ const Botones = () => {
 };
 
 render(<Botones />, document.getElementById("root3"));
+
+const SaludoEvento = () => {
+    const [name] = useState("");
+    // En jsx onChange se escribe con camelcase
+    // el primer parametro es lo que llamamos un syntecit event
+    //  tiene la misma informacion que el event cuando trabajamos con doms
+    // y eventlintesnert
+    return (
+        <div>
+            <input type="text" onChange={(ev) => console.log(ev)} />
+            <p> Hola {name}</p>
+        </div>
+    );
+};
+
+const EventosApp = () => {
+    return (
+        <div>
+            <SaludoEvento />
+        </div>
+    );
+};
+
+render(<EventosApp />, document.getElementById("root4"));
