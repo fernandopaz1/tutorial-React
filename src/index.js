@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { render } from "react-dom";
+import { EjemploComponente } from "./componentes/EjemploComponente";
 
 const SaludarEnIdiomas = ({ idioma }) => {
     if (idioma === "es") return <p>Hola</p>;
@@ -234,3 +235,15 @@ const Acordeon = () => {
 };
 
 render(<Acordeon />, document.getElementById("root5"));
+
+const MostrarCodeSpliting = () => {
+    const [show, setShow] = useState(false);
+    return (
+        <div>
+            <button onClick={() => setShow(!show)}>Mostrar Sorpresa</button>
+            {show && <EjemploComponente />}
+        </div>
+    );
+};
+
+render(<MostrarCodeSpliting />, document.getElementById("root6"));
