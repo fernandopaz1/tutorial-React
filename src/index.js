@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
 import { render } from "react-dom";
 
 const SaludarEnIdiomas = ({ idioma }) => {
@@ -124,14 +124,14 @@ const Botones = () => {
 render(<Botones />, document.getElementById("root3"));
 
 const SaludoEvento = () => {
-    const [name] = useState("");
+    const [name, setName] = useState("");
     // En jsx onChange se escribe con camelcase
     // el primer parametro es lo que llamamos un syntecit event
     //  tiene la misma informacion que el event cuando trabajamos con doms
     // y eventlintesnert
     return (
         <div>
-            <input type="text" onChange={(ev) => console.log(ev)} />
+            <input type="text" onChange={(ev) => setName(ev.target.value)} />
             <p> Hola {name}</p>
         </div>
     );
@@ -146,3 +146,91 @@ const EventosApp = () => {
 };
 
 render(<EventosApp />, document.getElementById("root4"));
+
+// trabajar con formularios podemos usar hooks para obtener los valores de
+// los inputs
+// para enviar un form no tenemos que creart un boton y ponerle un onclick
+// eso romple como funciona html ya que ahora no envia si aprieto enter
+// tambien si en vez de usar un form usaba un div tampoco serviria
+// tenemos que sio si usar un form con un input o button ipo submit
+const Form = ({ showed }) => {
+    let [title, setTitle] = useState("");
+    let [body, setBody] = useState("");
+
+    // actualizar el dom es uun efecto secundario por lo que tenemos que hacerloa aca
+    // en el array pongo que variable esperamos a que se modifique
+
+    // esta es la libreria que usamos cuando queremos
+    // acceder directamente al dom
+    // aunque siempre que se pueda es mejor que react se
+    // encargue de hacerlo
+
+    // en el input al que quiero apuntar debe haber una
+    // atributo ref con valor firstInput
+    const firstInput = useRef();
+    useEffect(() => {
+        if (showed) {
+            firstInput.current.focus();
+        }
+    }, [showed]);
+
+    const sendForm = () => {
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+            method: "POST",
+            body: JSON.stringify({
+                title: title,
+                body: body,
+                userId: 1,
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                setTitle("");
+                setBody("");
+                console.log(json);
+            });
+    };
+    return (
+        <form
+            onSubmit={(e) => {
+                e.preventDefault();
+                sendForm();
+            }}
+        >
+            <div>
+                <label htmlFor="title">Titulo </label>
+                <input
+                    type="text"
+                    id="title"
+                    value={title}
+                    ref={firstInput}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+            </div>
+            <div>
+                <label htmlFor="body">Publicacion</label>
+                <textarea
+                    id="body"
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)}
+                />
+            </div>
+            <input type="submit" value="Enviar" />
+        </form>
+    );
+};
+
+const Acordeon = () => {
+    const [show, setShow] = useState(false);
+    return (
+        <div>
+            <div onClick={() => setShow(!show)}> Mostrar Formulario </div>
+            {show && <Form value={show} showed={show} />}
+        </div>
+    );
+};
+
+render(<Acordeon />, document.getElementById("root5"));
