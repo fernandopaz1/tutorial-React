@@ -247,3 +247,15 @@ const MostrarCodeSpliting = () => {
 };
 
 render(<MostrarCodeSpliting />, document.getElementById("root6"));
+
+// const ImportOnDemand = () => {
+//     const [show, setShow] = useState(false);
+//     return (
+//         <div>
+//             <button onClick={() => setShow(!show)}>Mostrar Sorpresa</button>
+//             {show && <EjemploComponente />}
+//         </div>
+//     );
+// };
+
+// render(<ImportOnDemand />, document.getElementById("root7"));
