@@ -1,0 +1,2 @@
+(this["webpackJsonphola-mundo"]=this["webpackJsonphola-mundo"]||[]).push([[4],{15:function(o,n,u){"use strict";function t(){console.log("Hola mundo")}u.r(n),u.d(n,"default",(function(){return t}))}}]);
+//# sourceMappingURL=4.5981c302.chunk.js.map

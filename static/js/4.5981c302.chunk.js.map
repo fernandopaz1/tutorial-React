@@ -1,0 +1,1 @@
+{"version":3,"sources":["componentes/EjemploExportDinamico.js"],"names":["hello","console","log"],"mappings":"+GAAe,SAASA,IACpBC,QAAQC,IAAI,cADhB","file":"static/js/4.5981c302.chunk.js","sourcesContent":["export default function hello() {\n    console.log(\"Hola mundo\");\n}\n"],"sourceRoot":""}
