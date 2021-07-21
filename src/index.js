@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect, useRef, Suspense } from "react";
 import { render } from "react-dom";
 import ButtonReact from "./componentes/Button";
+import Card from "./componentes/Card";
 
 const SaludarEnIdiomas = ({ idioma }) => {
     if (idioma === "es") return <p>Hola</p>;
@@ -293,6 +294,7 @@ const EjemploReactContext = () => {
         <div>
             <ThemeContext.Provider value={theme}>
                 <ButtonReact />
+                <Card />
             </ThemeContext.Provider>
             <button
                 onClick={() => {
