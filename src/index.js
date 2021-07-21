@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect, useRef, Suspense } from "react";
 import { render } from "react-dom";
+import ButtonReact from "./componentes/Button";
 
 const SaludarEnIdiomas = ({ idioma }) => {
     if (idioma === "es") return <p>Hola</p>;
@@ -265,3 +266,46 @@ const MostrarCodeSpliting = () => {
 };
 
 render(<MostrarCodeSpliting />, document.getElementById("root6"));
+
+const themes = {
+    dark: {
+        backgroundColor: "black",
+        color: "white",
+    },
+    light: {
+        backgroundColor: "white",
+        color: "black",
+    },
+};
+
+// uso el componente ThemeContext para compartir informacion
+// entre los elementos hijos
+// cuando cambio las props de ThemeContext se actualizan para todos los hijos
+// dentro de los elementos que hijos de ThemeContext debemos
+// usar useContext
+// si tenemos muchos contextos debemos pasar el que queremos usar
+// tenemos que exportar este contexto e importarlo en el archivo
+export const ThemeContext = React.createContext();
+const EjemploReactContext = () => {
+    const [theme, setTheme] = useState(themes.dark);
+    const [isDark, setIsDark] = useState(theme === themes.dark);
+    return (
+        <div>
+            <ThemeContext.Provider value={theme}>
+                <ButtonReact />
+            </ThemeContext.Provider>
+            <button
+                onClick={() => {
+                    if (isDark) setTheme(themes.light);
+                    if (!isDark) setTheme(themes.dark);
+                    setIsDark(!isDark);
+                }}
+            >
+                CambiarModo
+            </button>
+            {/* <button onClick={() => setTheme(themes.dark)}>Modo Obscuro</button> */}
+        </div>
+    );
+};
+
+render(<EjemploReactContext />, document.getElementById("root7"));
