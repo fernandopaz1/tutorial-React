@@ -2,6 +2,7 @@ import React, { Component, useState, useEffect, useRef, Suspense } from "react";
 import { render } from "react-dom";
 import ButtonReact from "./componentes/Button";
 import Card from "./componentes/Card";
+import EjemploForm from "./componentes/Form";
 
 const SaludarEnIdiomas = ({ idioma }) => {
     if (idioma === "es") return <p>Hola</p>;
@@ -311,3 +312,8 @@ const EjemploReactContext = () => {
 };
 
 render(<EjemploReactContext />, document.getElementById("root7"));
+
+const EjemploFormContexto = () => {
+    return <EjemploForm />;
+};
+render(<EjemploFormContexto />, document.getElementById("root8"));
